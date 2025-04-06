@@ -1,0 +1,1 @@
+Шаблон TypeScript GNOME-расширения, поддерживающий intellisense completion. Сделанный по инструкции [TypeScript and LSP | GNOME Extension Guide](https://gjs.guide/extensions/development/typescript.html) 
