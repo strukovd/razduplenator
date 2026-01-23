@@ -1,10 +1,10 @@
 {
-    "name": "My TypeScript Extension",
-    "description": "An extension made with TypeScript",
-    "uuid": "my-extension@example.com",
-    "url": "https://github.com/example/my-extension",
-    "settings-schema": "org.gnome.shell.extensions.my-extension",
+    "name": "Current task badge",
+    "description": "Show the current task in the top bar",
+    "uuid": "current-task-badge@gmail.com",
+    "url": "https://github.com/example/current-task-badge",
+    "settings-schema": "org.gnome.shell.extensions.current-task-badge",
     "shell-version": [
-        "45"
+        "45", "46", "47", "48"
     ]
 }

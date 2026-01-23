@@ -1,19 +1,19 @@
 {
-	"name": "my-extension",
+	"name": "current-task-badge",
 	"version": "0.0.0",
 	"description": "A TypeScript GNOME Extension",
 	"type": "module",
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/example/my-extension.git"
+		"url": "git+https://github.com/example/current-task-badge.git"
 	},
 	"author": "Álan Crístoffer e Sousa <acristoffers@startmail.com>",
 	"license": "LGPL-3.0-or-later",
 	"bugs": {
-		"url": "https://github.com/example/my-extension/issues"
+		"url": "https://github.com/example/current-task-badge/issues"
 	},
-	"homepage": "https://github.com/example/my-extension#readme",
+	"homepage": "https://github.com/example/current-task-badge#readme",
 	"sideEffects": false,
 	"devDependencies": {
 		"eslint": "^9.24.0",

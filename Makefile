@@ -1,5 +1,5 @@
-NAME=my-extension
-DOMAIN=example.com
+NAME=current-task-badge
+DOMAIN=gmail.com
 
 .PHONY: all pack install clean
 
