@@ -6,7 +6,9 @@ import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/
 export default class GnomeRectanglePreferences extends ExtensionPreferences {
   _settings?: Gio.Settings
 
-  fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
+  override fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
+	console.log(`GnomeRectanglePreferences::fillPreferencesWindow`);
+
     this._settings = this.getSettings();
 
     const page = new Adw.PreferencesPage({
