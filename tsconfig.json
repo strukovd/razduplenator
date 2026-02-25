@@ -2,15 +2,23 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "./dist",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
 		"sourceMap": false,
 		"strict": true,
-		"target": "ES2022",
-		"lib": [ "ES2022" ],
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+
+		"moduleResolution": "Bundler",
+		"module": "esnext",
+		"target": "esnext",
+		"lib": ["ESNext"],
+		"checkJs": true,
+		"types": ["@girs/gjs", "@girs/gnome-shell"]
 	},
+	"exclude": [
+		"node_modules"
+	],
 	"include": [
 		"src/**/*",
 		"ambient.d.ts",
-	]
+	],
 }
