@@ -25,14 +25,6 @@ class Badge extends PanelMenu.Button {
         // arg3 = false
     ) {
 		const [arg1, arg2, arg3] = params;
-		console.log(`Badge::_init`);
-		console.log(`arg1: ${arg1}`);
-
-		params.forEach(param => {
-			console.log(`param: ${param}`);
-		});
-
-
         if (typeof arg1 === 'string') {
             super._init(100, arg1, false);
         } else if (typeof arg1 === 'number') {
@@ -45,13 +37,10 @@ class Badge extends PanelMenu.Button {
     }
 
 	ensureBadge() {
-		console.log(`Badge::ensureBadge`);
 		if(!this.featureBadge) this.create();
 	}
 
 	create() {
-		console.log(`Badge::create`);
-
 		// Текст бейджа
 		this.featureLabel = new St.Label({
 			text: DEFAULT_TEXT,
@@ -73,20 +62,13 @@ class Badge extends PanelMenu.Button {
 
 		// Обработка нажатия
 		this.initBadgeListeners();
-
-        // const menu = this.menu as PopupMenu.PopupMenu;
-        // menu.connect('open-state-changed', (_menu, open): boolean | undefined => {
-        //     if (open) this.renderMenu();
-        //     return undefined;
-        // });
 	}
 
 	refreshText() {
-		console.log(`Badge::refreshText`);
         this.ensureBadge();
 
-		// Показываем последнюю задачу
-		const text = Storage.get() ?? DEFAULT_TEXT;
+		const count = Storage.count();
+		const text = count > 0 ? `Задач: ${count}` : DEFAULT_TEXT;
 		this.featureLabel.set_text(text);
 	}
 
@@ -103,7 +85,14 @@ class Badge extends PanelMenu.Button {
 			return Clutter.EVENT_STOP;
 		};
 		const onRightMouseClick = () => {
-			this.menu.toggle();
+			const menu = this.menu as PopupMenu.PopupMenu;
+
+
+
+
+			// menu.close();
+			this.renderMenu();
+			// menu.open();
 			return Clutter.EVENT_STOP;
 		};
 
@@ -121,32 +110,32 @@ class Badge extends PanelMenu.Button {
         });
 	}
 
+	renderMenu() {
+		const menu = this.menu as PopupMenu.PopupMenu;
+		menu.removeAll();
 
-	// renderMenu() {
-	// 	console.log(`Dialog::renderMenu`);
+		const addButton = new PopupMenu.PopupMenuItem('✚ Добавить задачу');
+		addButton.connect('activate', () => {
+			menu.close();
+			this.showDialog();
+		});
+		menu.addMenuItem(addButton);
+		menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-	// 	const menu = this.menu as PopupMenu.PopupMenu;
-	// 	menu.removeAll();
+		menu.addMenuItem(
+			new PopupMenu.PopupMenuItem('Мои задачи', { reactive: false })
+		);
+		menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-	// 	const title = new PopupMenu.PopupMenuItem('Мои Задачи', { reactive: false });
-	// 	menu.addMenuItem(title);
-	// 	menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
-	// 	if (Storage.tasks.length === 0) {
-	// 		menu.addMenuItem(new PopupMenu.PopupMenuItem('Список пуст', { reactive: false }));
-	// 	} else {
-	// 		Storage.tasks.forEach((task, i) => {
-	// 			const item = new PopupMenu.PopupMenuItem(`${i + 1}. ${task}`);
-	// 			menu.addMenuItem(item);
-	// 		});
-	// 	}
-
-	// 	menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
-	// 	const addBtn = new PopupMenu.PopupMenuItem('✚ Добавить задачу');
-	// 	addBtn.connect('activate', () => this.onBadgeClick());
-	// 	menu.addMenuItem(addBtn);
-	// }
+		const tasks = Storage.getAll();
+		if (tasks.length === 0) {
+			menu.addMenuItem(new PopupMenu.PopupMenuItem('Список пуст', { reactive: false }));
+		} else {
+			tasks.forEach((task, index) => {
+				menu.addMenuItem(new PopupMenu.PopupMenuItem(`${index + 1}. ${task}`, {}));
+			});
+		}
+	}
 };
 
 export const BaseBadge = GObject.registerClass(Badge) as unknown as {

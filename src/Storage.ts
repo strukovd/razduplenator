@@ -13,6 +13,14 @@ export default class Storage {
 		Storage.notify();
 	}
 
+	static getAll(): string[] {
+		return [...Storage.tasks];
+	}
+
+	static count(): number {
+		return Storage.tasks.length;
+	}
+
 	static subscribe(listener: () => void): () => void {
 		Storage.listeners.add(listener);
 		return () => Storage.listeners.delete(listener);
